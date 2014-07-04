@@ -1,4 +1,9 @@
 
+enum List<T> {
+  Cons(T, Box<List<T>>),
+  Nil
+}
+
 static BASE_NUM: int = 10;
 
 // try to define a struct in rust
@@ -39,6 +44,16 @@ fn main() {
     p @ Point { x: 1..2, y: yy } => println!("{},{}", p.x, yy),
     _ => println!("other!")
   }
+
+  let list = Cons::<int>(1, box Cons(2, box Cons(3, box Nil)));
+
+  // shallowly copy
+  let x = box 5i;
+  let y = x.clone();
+
+  println!("shallowly copy: {}", y);
+
+
 }
 
 fn inc_point(p: Point) -> Point {
