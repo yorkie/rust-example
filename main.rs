@@ -1,4 +1,6 @@
 
+use std::task::spawn;
+
 enum List<T> {
   Cons(T, Box<List<T>>),
   Nil
@@ -13,7 +15,31 @@ struct Point {
 }
 
 fn main() {
-  
+ 
+  fn call_twice(f: ||) { f(); f(); }
+  let closure = || { 
+    println!("I'm a closure, and it doesn't matter what type I am") 
+  };
+  fn function() { 
+    println!("I'm a normal function")
+  }
+  call_twice(closure);
+  call_twice(function);
+
+
+  let mut x = 10i;
+  let closure = || -> () {
+    x += 10i;
+    println!("x->{}", x)
+  };
+  closure();
+  closure();
+
+  // use owned closures
+  spawn(proc() {
+    println!("i'm new task");
+  });
+
   let mut hi: int = BASE_NUM;
   loop {
     hi = hi - 1i;
